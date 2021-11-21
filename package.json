@@ -1,0 +1,9 @@
+{
+  "name": "moineau",
+  "version": "0.0.0",
+  "description": "Moineau is a web app framework for Node.js",
+  "main": "index.js",
+  "repository": "https://github.com/YoneyY/moineau",
+  "author": "YoneyY <yoneyy@163.com>",
+  "license": "MIT"
+}
