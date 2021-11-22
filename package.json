@@ -5,5 +5,9 @@
   "main": "index.js",
   "repository": "https://github.com/YoneyY/moineau",
   "author": "YoneyY <yoneyy@163.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.11.9",
+    "typescript": "^4.5.2"
+  }
 }
