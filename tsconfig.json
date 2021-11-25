@@ -3,7 +3,6 @@
     "target": "ESNEXT",
     "module": "CommonJS",
     "declaration": true,
-    "declarationDir": "lib/types",
     "pretty": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -27,6 +26,7 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "src/@types/types.d.ts"
   ]
 }

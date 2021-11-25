@@ -1,13 +1,42 @@
 {
   "name": "moineau",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Moineau is a web app framework for Node.js",
-  "main": "index.js",
+  "main": "./index.js",
+  "module": "lib/moineau.mjs",
+  "typings": "lib/moineau.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/moineau.mjs",
+      "require": "./index.js"
+    },
+    "./package.json": "./package.json",
+    "./": "./"
+  },
   "repository": "https://github.com/YoneyY/moineau",
   "author": "YoneyY <yoneyy@163.com>",
   "license": "MIT",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "rollup -c",
+    "prepublishOnly": "yarn build"
+  },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@types/debug": "^4.1.7",
     "@types/node": "^16.11.9",
+    "esbuild": "^0.13.15",
+    "rollup": "^2.60.1",
+    "rollup-plugin-dts": "^4.0.1",
+    "rollup-plugin-esbuild": "^4.7.2",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "debug": "^4.3.2"
   }
 }
