@@ -2,7 +2,7 @@
  * @Author: Yoney Y (YuTianyuan)
  * @Date: 2021-11-22 20:45:47
  * @Last Modified by: YoneyY (YuTianyuan)
- * @Last Modified time: 2021-11-26 01:41:38
+ * @Last Modified time: 2021-11-29 01:25:32
  */
 
 import net from 'net';
@@ -14,29 +14,31 @@ import context from './context';
 import request from './request';
 import response from './response';
 import EventEmitter from "events";
+import onFinished from 'on-finished';
+import type Moineau from '../moineau';
 
-export interface MoineauOptions {
+interface MoineauOptions {
   evn?: string;
   maxIpsCount?: number;
 }
 
-export default class Moineau extends EventEmitter {
+class Application extends EventEmitter {
 
   private env: string;
   private maxIpsCount: number;
   private context: typeof context;
   private request: typeof request;
   private response: typeof response;
-  private middleware: Array<Moineau.MiddlewareFunction<any>>;
+  private middleware: Array<Moineau.MiddlewareFunction<Moineau.Context>>;
 
-  constructor(options: MoineauOptions) {
+  constructor(options?: MoineauOptions) {
     super();
 
-    this.env = options.evn
+    this.env = options?.evn
       ?? process.env.NODE_ENV
       ?? 'development';
 
-    this.maxIpsCount = options.maxIpsCount ?? 0;
+    this.maxIpsCount = options?.maxIpsCount ?? 0;
 
     this.middleware = [];
     this.context = Object.assign(context);
@@ -44,9 +46,12 @@ export default class Moineau extends EventEmitter {
     this.response = Object.assign(response);
   }
 
-  use(fn: Moineau.MiddlewareFunction<any>) {
+  use(
+    fn: Moineau.MiddlewareFunction<Moineau.Context>
+  ): this {
     if (typeof fn !== 'function') throw new TypeError('params must be a function!');
     this.middleware.push(fn);
+    return this;
   }
 
   listen(handle: any, listeningListener?: () => void): http.Server;
@@ -77,14 +82,35 @@ export default class Moineau extends EventEmitter {
   }
 
   /**
-   * @todo 完善 handleRequest 方法
+   * handleRequest
+   * handle In comming Request
+   * 处理进来的请求
    * @param ctx
-   * @param fn
+   * @param middlewareFn
    */
-  handleRequest(ctx: any, fn: any) {
-    console.log(ctx, fn)
+  private async handleRequest(
+    ctx: Moineau.Context,
+    middlewareFn: Moineau.ComposeMiddleware<Moineau.Context>
+  ) {
+    try {
+      const res = ctx.res;
+      res.statusCode = 404;
+      const onerror = (err: Error | null) => ctx.onerror(err);
+      const handleResponse = () => core.respond(ctx);
+      onFinished(res, onerror);
+      await middlewareFn(ctx);
+      handleResponse();
+    } catch (error) {
+      this.onerror(error);
+    }
   }
 
+  /**
+   * create Moineau Context
+   * @param req
+   * @param res
+   * @returns
+   */
   createContext(
     req: http.IncomingMessage | http2.Http2ServerRequest,
     res: http.ServerResponse | http2.Http2ServerResponse
@@ -105,4 +131,19 @@ export default class Moineau extends EventEmitter {
     return context;
   }
 
+  /**
+   * onerror
+   * @todo 完善onerror
+   * @param error
+   */
+  onerror(error: any) {
+    console.log('moineau.onerror', error);
+  }
+
+  static get default() {
+    return Application;
+  }
+
 }
+
+export default Application;

@@ -2,7 +2,7 @@
  * @Author: Yoney Y (YuTianyuan)
  * @Date: 2021-11-25 23:51:28
  * @Last Modified by: YoneyY (YuTianyuan)
- * @Last Modified time: 2021-11-26 01:31:35
+ * @Last Modified time: 2021-11-28 16:47:34
  */
 
 type ProtoType = Record<string, any>;
@@ -73,7 +73,16 @@ class Delegates {
    * @returns
    */
   access(name: string) {
-    return this.getter(name).setter(name);
+    const self = this;
+    Object.defineProperty(this.proto, name, {
+      get() {
+        return this[self.target][name];
+      },
+      set(value) {
+        this[self.target][name] = value;
+      }
+    });
+    return this;
   }
 
   /**

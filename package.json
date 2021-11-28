@@ -4,7 +4,8 @@
   "description": "Moineau is a web app framework for Node.js",
   "main": "./index.js",
   "module": "lib/moineau.mjs",
-  "typings": "lib/moineau.d.ts",
+  "typings": "./moineau.d.ts",
+  "types": "./moineau.d.ts",
   "exports": {
     ".": {
       "import": "./lib/moineau.mjs",
@@ -30,6 +31,7 @@
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@types/debug": "^4.1.7",
     "@types/node": "^16.11.9",
+    "@types/on-finished": "^2.3.1",
     "esbuild": "^0.13.15",
     "rollup": "^2.60.1",
     "rollup-plugin-dts": "^4.0.1",
@@ -37,6 +39,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "debug": "^4.3.2"
+    "debug": "^4.3.2",
+    "on-finished": "^2.3.0"
   }
 }

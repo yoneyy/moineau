@@ -2,7 +2,7 @@
  * @Author: Yoney Y (YuTianyuan)
  * @Date: 2021-11-25 12:04:04
  * @Last Modified by: YoneyY (YuTianyuan)
- * @Last Modified time: 2021-11-25 20:09:40
+ * @Last Modified time: 2021-11-28 23:46:38
  */
 
 import dtsPlugin from 'rollup-plugin-dts';
@@ -31,7 +31,14 @@ function createComplieConfig({ dts, esm } = {}) {
       file,
       exports: 'named'
     },
-    external: ['puppeteer', 'moment'],
+    external: [
+      'net',
+      'http',
+      'http2',
+      'debug',
+      'events',
+      'on-finished',
+    ],
     plugins: [
       nodeResolvePlugin({
         mainFields: dts ? ['types', 'typings'] : ['module', 'main'],
@@ -58,5 +65,5 @@ function createComplieConfig({ dts, esm } = {}) {
 export default [
   createComplieConfig(),
   createComplieConfig({ esm: true }),
-  createComplieConfig({ dts: true })
+  // createComplieConfig({ dts: true })
 ]
