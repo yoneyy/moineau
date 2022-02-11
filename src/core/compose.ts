@@ -2,13 +2,13 @@
  * @Author: Yoney Y (YuTianyuan)
  * @Date: 2021-11-25 21:35:04
  * @Last Modified by: YoneyY (YuTianyuan)
- * @Last Modified time: 2021-11-25 23:22:55
+ * @Last Modified time: 2022-02-12 00:27:48
  */
 
 /**
  * compose
  * Compose middleware function
- * 组合中间价方法
+ * 组合中间件方法
  * @param middleware
  * @returns
  */
