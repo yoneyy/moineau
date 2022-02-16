@@ -1,6 +1,6 @@
 {
   "name": "moineau",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Moineau is a web app framework for Node.js",
   "main": "./index.js",
   "module": "lib/moineau.mjs",
