@@ -1,6 +1,6 @@
 {
   "name": "moineau",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Moineau is a web app framework for Node.js",
   "main": "./index.js",
   "module": "lib/moineau.mjs",
@@ -11,10 +11,9 @@
       "import": "./lib/moineau.mjs",
       "require": "./index.js"
     },
-    "./package.json": "./package.json",
-    "./": "./"
+    "./package.json": "./package.json"
   },
-  "repository": "https://github.com/YoneyY/moineau",
+  "repository": "https://github.com/yoneyy/moineau.git",
   "author": "YoneyY <yoneyy@163.com>",
   "license": "MIT",
   "files": [
